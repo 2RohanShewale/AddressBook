@@ -1,4 +1,5 @@
-﻿namespace AddressBookMain
+﻿using static System.Console;
+namespace AddressBookMain
 {
 	class Program
 	{
@@ -6,14 +7,23 @@
 		{
 			Console.WriteLine("#------Welcome to Address Book Program------#");
 			AddressBook book1 = new AddressBook();
-			bool addContact = true;
-			while (addContact)
+			bool exit = false;
+			while (!exit)
 			{
-                book1.CreateContact();
-				Console.Write("Do you want to add more contact?(Y/N) :");
-				string? s = Console.ReadLine();
-				if (s == "N" || s == "n") { addContact = false; }
-            }	
+				WriteLine();
+				WriteLine("1.Create Contact\n2.Edit Contact\n3.Display Contacts\n4.Exit");
+				int choice = Convert.ToInt32(Console.ReadLine());
+				switch (choice)
+				{
+					case 1: book1.CreateContact();break;
+					case 2: if (book1.NumberOfContacts > 0) { book1.EditContact(); } else { WriteLine("Add atlest one Contact in book");};break;
+					case 3: if (book1.NumberOfContacts > 0) { book1.ContactDisplay(); } else { WriteLine("There are no contacts in address book"); } break;
+					case 4: exit = true; break;
+					default:
+						break;
+				}
+				WriteLine("#########################");
+			}	
 		}
 	}
 }

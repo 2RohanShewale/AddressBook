@@ -6,7 +6,8 @@ namespace AddressBookMain
 {
     internal class AddressBook
     {
-        public List<Contact> Contacts = new List<Contact>();
+        public List<Contact> contacts = new List<Contact>();
+        public int NumberOfContacts { get; set; }
         
 
         public void CreateContact()
@@ -19,22 +20,36 @@ namespace AddressBookMain
             Write("State: "); string? state = ReadLine();
             Write("Country: "); string? country = ReadLine();
             Write("Zip Code: "); int code = Convert.ToInt32(ReadLine());
-            Write("Phone Number: "); int number = Convert.ToInt32(ReadLine());
+            Write("Phone Number: "); uint number = Convert.ToUInt32(ReadLine());
             Write("Email: "); string? email = ReadLine();
             Contact contact= new Contact(FirstName: FName, LastName: LName, Address: address, City: city, State: state, Country: country, ZipCode: code, PhoneNumber: number, Email: email);
-            Contacts.Add(contact);
-            Display();
+            contacts.Add(contact);
+            NumberOfContacts++;
+            ContactDisplay();
         }
-        public void Display()
+        public void ContactDisplay()
         {
-            foreach (var contact in Contacts)
+            foreach (var contact in contacts)
             {
                 WriteLine();
-                WriteLine("Name: " + contact.FirstName + " " + contact.LastName);
-                WriteLine("Address: " + contact.Address + " " + contact.City + " " + contact.City + " " + contact.Country + " " + contact.ZipCode);
-                WriteLine("Phone Number: " + contact.PhoneNumber);
-                WriteLine("Email: " + contact.Email);
+                ForegroundColor= ConsoleColor.Red;
+                contact.Display();
+                ResetColor();
                 WriteLine("*--------------------*");
+            }
+        }
+
+        public void EditContact()
+        {
+            WriteLine();
+            WriteLine("*---Edit Contact---*");
+            Write("Enter a first name of the contact: "); string? FName = ReadLine();
+            foreach (var contact in contacts)
+            {
+                if (contact.FirstName == FName) 
+                {
+                    contact.Edit();
+                }
             }
         }
     }
