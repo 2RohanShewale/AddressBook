@@ -19,7 +19,7 @@ namespace AddressBookMain
                     AddressBook book = addressBooks.OpenBook(name);
                     WriteLine();
                     WriteLine("This is Address Book: " + $" {name} ");
-                    WriteLine("1.Create Contact\n2.Edit Contact\n3.Delete Contact\n4.Display Contacts\n5.Change Address Book\n6.Create new Address Book\n7.Exit");
+                    WriteLine("1.Create Contact\n2.Edit Contact\n3.Delete Contact\n4.Display Contacts\n5.Change Address Book\n6.Create new Address Book\n7.Search by state or city accross all books\n7.Exit");
                     int choice = Convert.ToInt32(ReadLine());
                     switch (choice)
                     {
@@ -39,7 +39,8 @@ namespace AddressBookMain
                             break;
                         case 5: name = addressBooks.ChangeAddressBook(); break;
                         case 6: name = addressBooks.AddBook();break;
-                        case 7: exit = true; break;
+                        case 7: addressBooks.ByStateOrCity();break;
+                        case 8: exit = true; break;
                         default:
                             break;
                     }

@@ -41,5 +41,20 @@ namespace AddressBookMain
             Write("Enter the name of the book: "); string name = ReadLine();
             return name;
         }
+
+        public void ByStateOrCity()
+        {
+            WriteLine();
+            Write("Enter name of the city of state: "); string state = ReadLine();
+            List<Contact> contacts = new List<Contact>();
+            foreach(var book in books.Values)
+            {
+                contacts.AddRange(book.ByStateOrCity(state));
+            }
+            foreach (var contact in contacts)
+            {
+                WriteLine($"{contact.State} {contact.City} {contact.FirstName} ");
+            }
+        }
     }
 }

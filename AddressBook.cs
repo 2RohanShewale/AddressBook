@@ -99,6 +99,19 @@ namespace AddressBookMain
             }
 
         }
+        public List<Contact> ByStateOrCity(string state)
+        {
+            List<Contact> result = new List<Contact>();
+            contacts.ForEach(c => { if (c.City == state || c.State == state) { result.Add(c); } });
+            //foreach (var contact in contacts)
+            //{
+            //    if (contact.City == state || contact.State == state)
+            //    {
+            //       result.Add(contact);
+            //    }
+            //}
+            return result;
+        }
 
     }
 
