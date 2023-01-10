@@ -68,5 +68,20 @@ namespace AddressBookMain
             WriteLine("Phone Number: " + this.PhoneNumber);
             WriteLine("Email: " + this.Email);
         }
+
+        public override bool Equals(Object? obj)
+        {
+            if (obj is Contact) 
+            { 
+                Contact ob = (Contact)obj;
+                if (this.FirstName == ob.FirstName && this.LastName == ob.LastName)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return true;
+            
+        }
     }
 }

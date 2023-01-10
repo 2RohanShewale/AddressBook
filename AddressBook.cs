@@ -24,8 +24,30 @@ namespace AddressBookMain
             Write("Phone Number: "); uint number = Convert.ToUInt32(ReadLine());
             Write("Email: "); string? email = ReadLine();
             Contact contact = new Contact(FirstName: FName, LastName: LName, Address: address, City: city, State: state, Country: country, ZipCode: code, PhoneNumber: number, Email: email);
-            contacts.Add(contact);
-            NumberOfContacts++;
+            AddContact(contact);
+        }
+
+        public void AddContact(Contact contact) 
+        {
+            bool isDuplicate = false;
+            foreach (var name in contacts)
+            {
+                isDuplicate = name.Equals(contact);
+                WriteLine(isDuplicate);
+                if (isDuplicate) { break; }
+            }
+            if(!isDuplicate) 
+            {
+                contacts.Add(contact);
+                NumberOfContacts++;
+            }
+            else 
+            { 
+                ForegroundColor= ConsoleColor.Red;
+                WriteLine("Contact with similar first name and last name already exists"); 
+                ResetColor();
+            }
+            
             ContactDisplay();
         }
         public void ContactDisplay()
@@ -33,7 +55,7 @@ namespace AddressBookMain
             foreach (var contact in contacts)
             {
                 WriteLine();
-                ForegroundColor = ConsoleColor.Red;
+                ForegroundColor = ConsoleColor.Blue;
                 contact.Display();
                 ResetColor();
                 WriteLine("*--------------------*");

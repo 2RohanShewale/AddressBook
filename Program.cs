@@ -20,7 +20,7 @@ namespace AddressBookMain
                     WriteLine();
                     WriteLine("This is Address Book: " + $" {name} ");
                     WriteLine("1.Create Contact\n2.Edit Contact\n3.Delete Contact\n4.Display Contacts\n5.Change Address Book\n6.Create new Address Book\n7.Exit");
-                    int choice = Convert.ToInt32(Console.ReadLine());
+                    int choice = Convert.ToInt32(ReadLine());
                     switch (choice)
                     {
                         case 1: book.CreateContact(); break;
