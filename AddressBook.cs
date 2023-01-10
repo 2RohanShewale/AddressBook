@@ -8,7 +8,7 @@ namespace AddressBookMain
     {
         public List<Contact> contacts = new List<Contact>();
         public int NumberOfContacts { get; set; }
-        
+
 
         public void CreateContact()
         {
@@ -22,7 +22,7 @@ namespace AddressBookMain
             Write("Zip Code: "); int code = Convert.ToInt32(ReadLine());
             Write("Phone Number: "); uint number = Convert.ToUInt32(ReadLine());
             Write("Email: "); string? email = ReadLine();
-            Contact contact= new Contact(FirstName: FName, LastName: LName, Address: address, City: city, State: state, Country: country, ZipCode: code, PhoneNumber: number, Email: email);
+            Contact contact = new Contact(FirstName: FName, LastName: LName, Address: address, City: city, State: state, Country: country, ZipCode: code, PhoneNumber: number, Email: email);
             contacts.Add(contact);
             NumberOfContacts++;
             ContactDisplay();
@@ -32,7 +32,7 @@ namespace AddressBookMain
             foreach (var contact in contacts)
             {
                 WriteLine();
-                ForegroundColor= ConsoleColor.Red;
+                ForegroundColor = ConsoleColor.Red;
                 contact.Display();
                 ResetColor();
                 WriteLine("*--------------------*");
@@ -46,12 +46,32 @@ namespace AddressBookMain
             Write("Enter a first name of the contact: "); string? FName = ReadLine();
             foreach (var contact in contacts)
             {
-                if (contact.FirstName == FName) 
+                if (contact.FirstName == FName)
                 {
                     contact.Edit();
                 }
             }
         }
+        public void DeleteContact()
+        {
+            WriteLine();
+            WriteLine("*---Delete Contact---*");
+            Write("Enter first name of contact: "); string? FName = ReadLine();
+            Write("Enter Last Name: "); string? LName = ReadLine();
+            foreach (Contact contact in contacts)
+            {
+                if (contact.FirstName == FName && contact.LastName == LName) 
+                { 
+                    contacts.Remove(contact); 
+                    WriteLine("Contact Removed"); 
+                    this.NumberOfContacts--; 
+                    break; 
+                }
+                else
+                {
+                    WriteLine("Name does not Exists");
+                }
+            }
+        }
     }
-
 }
