@@ -1,11 +1,12 @@
-﻿using AddressBook;
-using System;
+﻿using System.Collections.Specialized;
 using static System.Console;
 
 namespace AddressBookMain
 {
-    internal class AddressBook
+   
+        internal class AddressBook
     {
+        public string Name { get; set; }
         public List<Contact> contacts = new List<Contact>();
         public int NumberOfContacts { get; set; }
 
@@ -59,19 +60,25 @@ namespace AddressBookMain
             Write("Enter first name of contact: "); string? FName = ReadLine();
             Write("Enter Last Name: "); string? LName = ReadLine();
             foreach (Contact contact in contacts)
+
             {
-                if (contact.FirstName == FName && contact.LastName == LName) 
-                { 
-                    contacts.Remove(contact); 
-                    WriteLine("Contact Removed"); 
-                    this.NumberOfContacts--; 
-                    break; 
+                if (contact.FirstName == FName && contact.LastName == LName)
+                {
+                    contacts.Remove(contact);
+                    WriteLine("Contact Removed");
+                    this.NumberOfContacts--;
+                    break;
                 }
                 else
                 {
                     WriteLine("Name does not Exists");
                 }
+
             }
+
         }
+
     }
+
 }
+
