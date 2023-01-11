@@ -112,7 +112,7 @@ namespace AddressBookMain
                 DisplayCity();
             }
         }
-
+        
         public void DisplayState()
         {
             foreach(KeyValuePair<string,List<Contact>> contacts in ByState)
