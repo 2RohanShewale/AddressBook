@@ -88,7 +88,7 @@ namespace AddressBookMain
                 {
                     contacts.Remove(contact);
                     WriteLine("Contact Removed");
-                    this.NumberOfContacts--;
+                    NumberOfContacts--;
                     break;
                 }
                 else

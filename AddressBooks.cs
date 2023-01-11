@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic;
+using System.Threading.Tasks.Dataflow;
 
 namespace AddressBookMain
 {
     internal class AddressBooks
     {
         public Dictionary<string, AddressBook> books = new Dictionary<string, AddressBook>();
+        public List<Contact> AllContacts = new List<Contact>();
+        public Dictionary<string, List<Contact>> ByState = new Dictionary<string, List<Contact>>();
+        public Dictionary<string, List<Contact>> ByCity = new Dictionary<string, List<Contact>>();
         public int NumberOfBooks { get; set; }
 
         public string AddBook()
@@ -56,5 +61,80 @@ namespace AddressBookMain
                 WriteLine($"{contact.State} {contact.City} {contact.FirstName} ");
             }
         }
+
+        public void GetAllTheContacts()
+        {
+            foreach(AddressBook Book in books.Values)
+            {
+                foreach (Contact contact in Book.contacts)
+                {
+                    AllContacts.Add(contact);
+                }
+            }
+        }
+
+        private void AddToDictionary()
+        {
+            GetAllTheContacts();
+            foreach(Contact x in AllContacts)
+            {
+                if (ByState.ContainsKey(x.State))
+                {
+                    ByState[x.State].Add(x);
+                }
+                else
+                {
+                    List<Contact> list = new List<Contact>();
+                    list.Add(x);
+                    ByState.Add(x.State, list);
+                }
+                if (ByCity.ContainsKey(x.City))
+                {
+                    ByCity[x.City].Add(x);
+                }else
+                {
+                    List<Contact> list = new List<Contact>(); list.Add(x);
+                    ByCity.Add(x.City, list);
+                }
+            }
+        }
+
+        public void DislplayDictionary()
+        {
+            WriteLine("Display contacts by City or State: ");
+            Write("1. By State 2.By City"); int a = Convert.ToInt32(ReadLine());
+            if (a == 1)
+            {
+                DisplayState();
+            }
+            else if(a ==2)
+            {
+                DisplayCity();
+            }
+        }
+
+        public void DisplayState()
+        {
+            foreach(KeyValuePair<string,List<Contact>> contacts in ByState)
+            {
+                ForegroundColor = ConsoleColor.Magenta;
+                WriteLine(ByState.Keys);
+                ResetColor();
+                contacts.Value.ForEach(contacts => { WriteLine(contacts.FirstName); });
+                WriteLine();
+            }
+        }
+        public void DisplayCity()
+        {
+            foreach (KeyValuePair<string, List<Contact>> contacts in ByCity)
+            {
+                ForegroundColor = ConsoleColor.Cyan;
+                WriteLine(ByCity.Keys);
+                ResetColor();
+                contacts.Value.ForEach(contacts => { WriteLine(contacts.FirstName); });
+                WriteLine();
+            }
+        }
+
     }
 }
